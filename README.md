@@ -1,5 +1,5 @@
 # snake
-Clone of classical Snake game
+Clone of classical <a href="https://en.wikipedia.org/wiki/Snake_(video_game)">Snake game</a>
 
 Progamming language: Java
 
