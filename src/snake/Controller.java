@@ -15,12 +15,10 @@ public class Controller {
     private static final int CANVAS_WIDTH = Model.CELL_WIDTH * Model.NCOL;
     private static final int CANVAS_HEIGHT = Model.CELL_HEIGHT * Model.NROW;
 
-    public static void main(String[] args) {        
-        java.awt.EventQueue.invokeLater(() -> {
-            Model.init();
-            View.createAndShowGUI(CANVAS_WIDTH, CANVAS_HEIGHT);
-            set();
-        });
+    public static void main(String[] args) {
+        Model.init();
+        View.createAndShowGUI(CANVAS_WIDTH, CANVAS_HEIGHT);
+        set();
     }
 
     private static void set() {

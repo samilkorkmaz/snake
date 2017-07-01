@@ -43,30 +43,33 @@ public class Model {
     private static Random random;
     private static final List<Integer> snakeList = new LinkedList<>();
 
-    static Drawer drawer = (Graphics g) -> {
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.LIGHT_GRAY);
-        g2.clearRect(GRID.get(0).x, GRID.get(0).y, CELL_WIDTH * NCOL, CELL_HEIGHT * NROW);
-        //draw grid:
-        for (Rectangle rect : GRID) {
-            g2.draw(rect);
-        }
-        //draw snake:        
-        g2.setColor(Color.GREEN);
-        for (int i = 0; i < snakeList.size() - 1; i++) {
-            g2.fill(GRID.get(snakeList.get(i)));
-        }
-        g2.setColor(Color.BLACK);
-        g2.fill(GRID.get(snakeList.get(snakeList.size() - 1)));
-        //draw food:
-        if (!isAllFoodEaten()) { //To prevent drawing of food after all food is eaten
-            g2.setColor(Color.ORANGE);
-            g2.fill(GRID.get(get1DIndex(iFoodRow, iFoodCol, NROW)));
-        }
-        //if snake has bit itself:
-        if (indexBite != HAS_NOT_BIT_ITSELF) {
-            g2.setColor(Color.RED);
-            g2.fill(GRID.get(indexBite));
+    static Drawer drawer = new Drawer() {
+        @Override
+        public void draw(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setColor(Color.LIGHT_GRAY);
+            g2.clearRect(GRID.get(0).x, GRID.get(0).y, CELL_WIDTH * NCOL, CELL_HEIGHT * NROW);
+            //draw grid:
+            for (Rectangle rect : GRID) {
+                g2.draw(rect);
+            }
+            //draw snake:        
+            g2.setColor(Color.GREEN);
+            for (int i = 0; i < snakeList.size() - 1; i++) {
+                g2.fill(GRID.get(snakeList.get(i)));
+            }
+            g2.setColor(Color.BLACK);
+            g2.fill(GRID.get(snakeList.get(snakeList.size() - 1)));
+            //draw food:
+            if (!isAllFoodEaten()) { //To prevent drawing of food after all food is eaten
+                g2.setColor(Color.ORANGE);
+                g2.fill(GRID.get(get1DIndex(iFoodRow, iFoodCol, NROW)));
+            }
+            //if snake has bit itself:
+            if (indexBite != HAS_NOT_BIT_ITSELF) {
+                g2.setColor(Color.RED);
+                g2.fill(GRID.get(indexBite));
+            }
         }
     };
 
@@ -152,12 +155,10 @@ public class Model {
                 snakeList.remove(0);
             }
             snakeList.add(get1DIndex(iActiveRow, iActiveCol, NROW));
+        } else if (isAllFoodEaten()) {
+            status = Status.SUCCESS;
         } else {
-            if (isAllFoodEaten()) {
-                status = Status.SUCCESS;
-            } else {
-                status = Status.FAIL;
-            }
+            status = Status.FAIL;
         }
         return status;
     }
