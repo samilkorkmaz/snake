@@ -17,7 +17,7 @@ import javax.swing.AbstractAction;
  * @author skorkmaz
  */
 public class Model {
-
+wtf
     enum Status {
 
         CONTINUE,
